@@ -25,18 +25,6 @@ public class Profile {
 		this.creditScore = 0;
 	}
 	
-<<<<<<< Updated upstream
-	public void addAccount(Account account){
-		// gets permission for a new account
-		// creates new account
-		// adds an account to the array
-	}
-	
-	public void removeAccount(Account account){
-		// gets permission to remove account
-		// removes account from the array
-		// moves the index of the other accounts
-=======
 	// load accounts from file into the array
 	public void loadAccounts(int[] accountNumbers) {
 		try (java.util.Scanner scanner = new java.util.Scanner(accountFile)) {
@@ -79,7 +67,6 @@ public class Profile {
 		saveAccountToFile(newAccount);
 		
 		System.out.println("Account created: " + newAccountNum + " PIN: " + newPin);
->>>>>>> Stashed changes
 	}
 	
 	// generate unique account number
@@ -188,8 +175,7 @@ public class Profile {
 		return password;
 	}
 
-<<<<<<< Updated upstream
-=======
+
 	// setters
 	public void setName(String name) {
 	    this.name = name;
@@ -215,5 +201,4 @@ public class Profile {
 	public void setAccounts(ArrayList<Account> accounts) {
 	    this.accounts = accounts;
 	}
->>>>>>> Stashed changes
 }
