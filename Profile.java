@@ -14,7 +14,8 @@ public class Profile {
 	private int creditScore;
 	private static File accountFile = new File("accounts.txt");
 	
-	public Profile(String name, String user, String pass, int phone, String addy, String email) {
+<<<<<<< Updated upstream
+	public Profile(String name, String user, String pass,long phone, String addy, String email) {
 		this.name = name;
 		this.username = user;
 		this.password = pass;
