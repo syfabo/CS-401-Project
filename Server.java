@@ -66,6 +66,13 @@ class ClientHandler implements Runnable {
 	public void run() {
 
 		try ( // create the object input and output streams on socket
+			var s = socket;
+			ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+			ObjectInputStream in = new ObjectInputStream(socket.getInputStream());) {
+
+			// Store streams as instance variables for use in handler methods
+			this.outputStream = out;
+			this.inputStream = in;
 				var s = socket;
 				// IMPORTANT: Server reads first, so create InputStream before OutputStream to avoid deadlock
 				ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
@@ -77,7 +84,7 @@ class ClientHandler implements Runnable {
 			Application sender = Application.undefined;
 			Boolean loggedIn = false;
 
-			System.out.println("New Connection"); // TODO remove (or make graphical)
+			JOptionPane.showMessageDialog(null,"New Connection"); // TODO remove
 
 			// loop that listens for messages
 			while (true) {

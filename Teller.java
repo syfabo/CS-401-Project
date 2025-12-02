@@ -5,8 +5,6 @@ import java.net.InetAddress;
 import java.net.Socket;
 import javax.swing.JOptionPane;
 
-import javax.swing.JOptionPane;
-
 public class Teller {
 	//Easy access message parameters
 	static MessageType employeeLogin = MessageType.employeeLogin;
