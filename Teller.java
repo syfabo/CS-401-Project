@@ -1,12 +1,17 @@
 package group3;
+
 import java.io.*;
+import java.net.InetAddress;
 import java.net.Socket;
+import javax.swing.JOptionPane;
+
 import javax.swing.JOptionPane;
 
 public class Teller {
 	//Easy access message parameters
 	static MessageType employeeLogin = MessageType.employeeLogin;
 	static MessageType customerLogin = MessageType.customerLogin;
+  static MessageStatus request = MessageStatus.request;
 	static MessageType withdraw = MessageType.withdrawal;
 	static MessageType deposit = MessageType.deposit;
 	static MessageType logout = MessageType.logout;
@@ -348,4 +353,30 @@ public class Teller {
 	public void setCurrentProfile(Profile profile) {
 		this.currentProfile = profile;
 	}
+
+	// checks with server and returns Profile or null if DNE
+	public Profile customerLogin(String user, String pass) {
+		Profile profile = null;
+
+		// create + send request message to teller login with user and pass
+
+		// listen for confirm message
+
+		// if status == confirmation 
+		// {valid = true; listen for profile object; return valid}
+		
+
+		// else
+		return profile;
+
+	}
+
+	// checks file for profile info returns null if invalid
+	public Profile findProfile(String user, String pass) {
+		Profile profile = null;
+
+		return profile;
+
+	}
+
 }

@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Account implements Serializable {
 	private int accountNumber;
 	private int pin;
-	private AccountType type;
+	private final AccountType type;
 	private double balance;
 	private double initialBalance; // for LOC tracking
 	
@@ -15,11 +15,13 @@ public class Account implements Serializable {
 		this.type = type;
 		this.balance = value;
 		this.initialBalance = value;
+		this.initialBalance = value;
 	}
 	
 	public void deposit(double amt) {
-		// make sure a LOC account is not at maxium balance
+		// Line of Credit accounts behave differently: you are paying down debt.
 		if (type == AccountType.lineOfCredit) {
+			// If there is no outstanding balance, do not accept a payment.
 			if (balance == initialBalance) {
 				System.out.println("No Balance Owed, Cannot Make Deposit.");
 				// TODO log entry somehow
@@ -64,14 +66,16 @@ public class Account implements Serializable {
 			// TODO log entry
 		}
 	}
-	
-	
+
+	// getters
 	public double getBalance() {
 		return balance;
 	}
+
 	public int getPin() {
 		return pin;
 	}
+
 	public int getNum() {
 		return accountNumber;
 	}
