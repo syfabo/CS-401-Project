@@ -59,8 +59,9 @@ class ClientHandler implements Runnable {
 
 		try ( // create the object input and output streams on socket
 				var s = socket;
-				ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
-				ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());) {
+				// IMPORTANT: Server reads first, so create InputStream before OutputStream to avoid deadlock
+				ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
+				ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());) {
 
 			// create variables outside of loop
 			Message msg = null;

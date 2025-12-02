@@ -1,6 +1,8 @@
 package group3;
 
-public class Account {
+import java.io.Serializable;
+
+public class Account implements Serializable {
 	private int accountNumber;
 	private int pin;
 	private AccountType type;
@@ -12,6 +14,7 @@ public class Account {
 		this.pin = pin;
 		this.type = type;
 		this.balance = value;
+		this.initialBalance = value;
 	}
 	
 	public void deposit(double amt) {
@@ -21,21 +24,44 @@ public class Account {
 				System.out.println("No Balance Owed, Cannot Make Deposit.");
 				// TODO log entry somehow
 				return;
+			} else {
+				// reduce debt (balance moves closer to initialBalance)
+				balance += amt;
+				// don't allow balance to exceed initialBalance
+				if (balance > initialBalance) {
+					balance = initialBalance;
+				}
+				// TODO log entry
 			}
-		}
-		else {
-		// updates account balance
-		balance += amt;
-		
-		// TODO confirmation for log entry
-	
+		} else {
+			// updates account balance
+			balance += amt;
+			
+			// TODO confirmation for log entry
 		}
 	}
 	public void withdraw(double amt) {
-		if (balance < amt) {
-			System.out.println("Insufficient Funds");
-			// TODO log entry somehow
-			return;
+		// Line of Credit accounts can withdraw up to the credit limit (balance can go to 0)
+		if (type == AccountType.lineOfCredit) {
+			// For LOC, balance starts at initialBalance (credit limit) and decreases with withdrawals
+			// Can withdraw as long as balance doesn't go below 0
+			if (balance - amt < 0) {
+				System.out.println("Insufficient Credit Available");
+				// TODO log entry somehow
+				return;
+			}
+			balance -= amt;
+			// TODO log entry
+		} else {
+			// Regular accounts (checking, saving) need sufficient balance
+			if (balance < amt) {
+				System.out.println("Insufficient Funds");
+				// TODO log entry somehow
+				return;
+			}
+			// subtract amount from balance
+			balance -= amt;
+			// TODO log entry
 		}
 	}
 	
@@ -50,5 +76,8 @@ public class Account {
 		return accountNumber;
 	}
 	
+	public AccountType getType() {
+		return type;
+	}
 	
 }

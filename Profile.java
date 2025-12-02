@@ -3,18 +3,17 @@ package group3;
 import java.io.*;
 import java.util.ArrayList;
 
-public class Profile {
+public class Profile implements Serializable {
 	private String name;
 	private String username;
 	private String password;
-	private int phone;
+	private long phone;
 	private String address;
 	private String email;
 	private ArrayList<Account> accounts;
 	private int creditScore;
 	private static File accountFile = new File("accounts.txt");
 	
-<<<<<<< Updated upstream
 	public Profile(String name, String user, String pass,long phone, String addy, String email) {
 		this.name = name;
 		this.username = user;
@@ -157,7 +156,7 @@ public class Profile {
 	public String getUsername() {
 		return username;
 	}
-	public int getPhone() {
+	public long getPhone() {
 		return phone;
 	}
 	public String getAddress() {
