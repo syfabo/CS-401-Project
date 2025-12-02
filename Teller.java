@@ -10,7 +10,6 @@ public class Teller {
 	// easy access message parameters
 	static MessageType employeeLogin = MessageType.employeeLogin;
 	static MessageType customerLogin = MessageType.customerLogin;
-  static MessageStatus request = MessageStatus.request;
 	static MessageType withdraw = MessageType.withdrawal;
 	static MessageType deposit = MessageType.deposit;
 	static MessageType logout = MessageType.logout;
@@ -300,23 +299,6 @@ public class Teller {
 	// setters
 	public void setCurrentProfile(Profile profile) {
 		this.currentProfile = profile;
-	}
-
-	// checks with server and returns Profile or null if DNE
-	public Profile customerLogin(String user, String pass) {
-		Profile profile = null;
-
-		// create + send request message to teller login with user and pass
-
-		// listen for confirm message
-
-		// if status == confirmation 
-		// {valid = true; listen for profile object; return valid}
-		
-
-		// else
-		return profile;
-
 	}
 
 	// checks file for profile info returns null if invalid

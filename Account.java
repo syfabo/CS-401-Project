@@ -1,6 +1,8 @@
 package group3;
 
-public class Account {
+import java.io.*;
+
+public class Account implements Serializable {
 	private int accountNumber;
 	private int pin;
 	private final AccountType type;

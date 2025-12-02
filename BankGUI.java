@@ -392,6 +392,16 @@ public class BankGUI {
 		customerPanel.add(customerPass);
 		customerPanel.add(CLB);
 		customerPanel.add(createProfile);
+		
+		JPanel newCustomerPanel = new JPanel();
+		newCustomerPanel.setLayout(new FlowLayout());
+		JTextField customerName = new JTextField(21);
+		JTextField newCustomerUser = new JTextField(20);
+		JTextField newCustomerPass = new JTextField(20);
+		JButton confirm = new JButton("Create Profile");
+		
+		
+		
 
 		login.add(customerPanel, BorderLayout.CENTER);
 
@@ -416,10 +426,47 @@ public class BankGUI {
 				}
 			}
 		});
-		
+		// creates new profile object
 		createProfile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// creates new profile object
+				
+				// prompt for new values
+				String n = JOptionPane.showInputDialog("Enter name: ");
+				// check if user presses cancel
+				if (n == null){ 
+					return;}
+				
+				String a = JOptionPane.showInputDialog("Enter address: ");
+				if (a == null){ 
+					return;}
+				
+				String input = "";
+				long p = 0;
+				try {
+					input = JOptionPane.showInputDialog("Enter phone number: ");
+					// if user presses cancel
+					if (input == null) {
+						return;
+					}
+					p = Long.parseLong(input);
+				}
+				catch(NumberFormatException e2){
+						JOptionPane.showMessageDialog(login, "phone number may only be numbers");
+				}
+
+				String eMail = JOptionPane.showInputDialog("Enter email: ");
+				if (eMail == null){ 
+					return;}
+				
+				String u = JOptionPane.showInputDialog("Enter username: ");
+				if (u == null){ 
+					return;}
+				
+				String pass = JOptionPane.showInputDialog("Enter password: ");
+				if (pass == null){ 
+					return;}
+				// call create profile
+				teller.createProfile(n,u,pass,p,a,eMail);
 				
 			}
 		});
