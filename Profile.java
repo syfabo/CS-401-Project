@@ -13,7 +13,8 @@ public class Profile {
 	private ArrayList<Account> accounts;
 	private int creditScore;
 	private static File accountFile = new File("accounts.txt");
-
+	
+<<<<<<< Updated upstream
 	public Profile(String name, String user, String pass,long phone, String addy, String email) {
 		this.name = name;
 		this.username = user;
