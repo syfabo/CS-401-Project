@@ -392,16 +392,16 @@ public class BankGUI {
 		customerPanel.add(customerPass);
 		customerPanel.add(CLB);
 		customerPanel.add(createProfile);
-		
+
 		JPanel newCustomerPanel = new JPanel();
 		newCustomerPanel.setLayout(new FlowLayout());
 		JTextField customerName = new JTextField(21);
 		JTextField newCustomerUser = new JTextField(20);
 		JTextField newCustomerPass = new JTextField(20);
 		JButton confirm = new JButton("Create Profile");
-		
-		
-		
+
+
+
 
 		login.add(customerPanel, BorderLayout.CENTER);
 
@@ -429,18 +429,19 @@ public class BankGUI {
 		});
 		// creates new profile object
 		createProfile.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+
 				// prompt for new values
 				String n = JOptionPane.showInputDialog("Enter name: ");
 				// check if user presses cancel
-				if (n == null){ 
+				if (n == null){
 					return;}
-				
+
 				String a = JOptionPane.showInputDialog("Enter address: ");
-				if (a == null){ 
+				if (a == null){
 					return;}
-				
+
 				String input = "";
 				long p = 0;
 				try {
@@ -456,19 +457,19 @@ public class BankGUI {
 				}
 
 				String eMail = JOptionPane.showInputDialog("Enter email: ");
-				if (eMail == null){ 
+				if (eMail == null){
 					return;}
-				
+
 				String u = JOptionPane.showInputDialog("Enter username: ");
-				if (u == null){ 
+				if (u == null){
 					return;}
-				
+
 				String pass = JOptionPane.showInputDialog("Enter password: ");
-				if (pass == null){ 
+				if (pass == null){
 					return;}
 				// call create profile
 				teller.createProfile(n,u,pass,p,a,eMail);
-				
+
 			}
 		});
 
