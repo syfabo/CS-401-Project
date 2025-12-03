@@ -3,9 +3,7 @@ package group3;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Scanner;
@@ -17,6 +15,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 
 // GUI object that can be used for an ATM or Teller Application
 public class BankGUI {
@@ -28,8 +28,8 @@ public class BankGUI {
 	// GUI constructor takes the application in use
 	public BankGUI(ATM atm, Teller teller) {
 		scan = new Scanner(System.in);
-		this.teller = teller;
-		this.atm = atm;
+		BankGUI.teller = teller;
+		BankGUI.atm = atm;
 
 		// start up the GUI based on the application
 		if (teller != null) {
@@ -62,14 +62,14 @@ public class BankGUI {
 	private static void atmLoginScreen() {
 		// create login frame
 		JFrame loginFrame = new JFrame("ATM Login");
-		loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		loginFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		loginFrame.setSize(400, 300);
 		loginFrame.setLocationRelativeTo(null);
 		loginFrame.setLayout(new BorderLayout());
 
 		// main panel with grid layout for components
 		JPanel mainPanel = new JPanel(new GridLayout(5, 1, 10, 10));
-		JLabel title = new JLabel("Welcome to ATM", JLabel.CENTER);
+		JLabel title = new JLabel("Welcome to ATM", SwingConstants.CENTER);
 		title.setFont(new Font("Arial", Font.BOLD, 24));
 
 		// account number input
@@ -132,13 +132,14 @@ public class BankGUI {
 	private static void atmMainMenu() {
 		// create menu frame
 		JFrame menuFrame = new JFrame("ATM Menu");
-		menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		menuFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		menuFrame.setSize(400, 400);
 		menuFrame.setLocationRelativeTo(null);
 		menuFrame.setLayout(new BorderLayout());
 
+
 		// title at top
-		JLabel title = new JLabel("Select an Option", JLabel.CENTER);
+		JLabel title = new JLabel("Select an Option", SwingConstants.CENTER);
 		title.setFont(new Font("Arial", Font.BOLD, 20));
 		menuFrame.add(title, BorderLayout.NORTH);
 
@@ -188,13 +189,13 @@ public class BankGUI {
 	private static void atmWithdrawScreen(JFrame menuFrame) {
 		// create withdraw frame
 		JFrame withdrawFrame = new JFrame("Withdraw");
-		withdrawFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		withdrawFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		withdrawFrame.setSize(400, 300);
 		withdrawFrame.setLocationRelativeTo(null);
 		withdrawFrame.setLayout(new BorderLayout());
 
 		JPanel mainPanel = new JPanel(new GridLayout(4, 1, 10, 10));
-		JLabel title = new JLabel("Enter Withdrawal Amount", JLabel.CENTER);
+		JLabel title = new JLabel("Enter Withdrawal Amount", SwingConstants.CENTER);
 		title.setFont(new Font("Arial", Font.BOLD, 18));
 
 		// quick amount buttons for common withdrawals
@@ -262,13 +263,13 @@ public class BankGUI {
 	private static void atmDepositScreen(JFrame menuFrame) {
 		// create deposit frame
 		JFrame depositFrame = new JFrame("Deposit");
-		depositFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		depositFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		depositFrame.setSize(400, 250);
 		depositFrame.setLocationRelativeTo(null);
 		depositFrame.setLayout(new BorderLayout());
 
 		JPanel mainPanel = new JPanel(new GridLayout(3, 1, 10, 10));
-		JLabel title = new JLabel("Enter Deposit Amount", JLabel.CENTER);
+		JLabel title = new JLabel("Enter Deposit Amount", SwingConstants.CENTER);
 		title.setFont(new Font("Arial", Font.BOLD, 18));
 
 		// amount input
@@ -320,7 +321,7 @@ public class BankGUI {
 		// create login screen frame
 		JFrame login = new JFrame("Login");
 		// frame closes by the X button
-		login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		login.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		// height by width in pixels
 		login.setSize(1000, 500);
 		// relative to null is center of screen
@@ -344,6 +345,7 @@ public class BankGUI {
 
 		// employee login sequence
 		ELB.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 
 				// calls employee login on the teller application with user + pass
@@ -371,7 +373,7 @@ public class BankGUI {
 		// create login screen frame
 		JFrame login = new JFrame("Login");
 		// frame closes by the X button
-		login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		login.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		// height by width in pixels
 		login.setSize(1000, 500);
 		// relative to null is center of screen
@@ -389,11 +391,23 @@ public class BankGUI {
 		customerPanel.add(customerUser);
 		customerPanel.add(customerPass);
 		customerPanel.add(CLB);
+		customerPanel.add(createProfile);
+		
+		JPanel newCustomerPanel = new JPanel();
+		newCustomerPanel.setLayout(new FlowLayout());
+		JTextField customerName = new JTextField(21);
+		JTextField newCustomerUser = new JTextField(20);
+		JTextField newCustomerPass = new JTextField(20);
+		JButton confirm = new JButton("Create Profile");
+		
+		
+		
 
 		login.add(customerPanel, BorderLayout.CENTER);
 
 		// customer login sequence
 		CLB.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 
 				// calls customer login on the teller application with user + pass
@@ -411,6 +425,50 @@ public class BankGUI {
 					// if customer login is not approved do nothing
 					JOptionPane.showMessageDialog(login, "Customer login failed");
 				}
+			}
+		});
+		// creates new profile object
+		createProfile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				// prompt for new values
+				String n = JOptionPane.showInputDialog("Enter name: ");
+				// check if user presses cancel
+				if (n == null){ 
+					return;}
+				
+				String a = JOptionPane.showInputDialog("Enter address: ");
+				if (a == null){ 
+					return;}
+				
+				String input = "";
+				long p = 0;
+				try {
+					input = JOptionPane.showInputDialog("Enter phone number: ");
+					// if user presses cancel
+					if (input == null) {
+						return;
+					}
+					p = Long.parseLong(input);
+				}
+				catch(NumberFormatException e2){
+						JOptionPane.showMessageDialog(login, "phone number may only be numbers");
+				}
+
+				String eMail = JOptionPane.showInputDialog("Enter email: ");
+				if (eMail == null){ 
+					return;}
+				
+				String u = JOptionPane.showInputDialog("Enter username: ");
+				if (u == null){ 
+					return;}
+				
+				String pass = JOptionPane.showInputDialog("Enter password: ");
+				if (pass == null){ 
+					return;}
+				// call create profile
+				teller.createProfile(n,u,pass,p,a,eMail);
+				
 			}
 		});
 
@@ -433,7 +491,7 @@ public class BankGUI {
 		// create profile view frame
 		JFrame profileFrame = new JFrame("Customer Profile");
 		// frame closes by the X button
-		profileFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		profileFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		// height by width in pixels
 		profileFrame.setSize(1000, 500);
 		// relative to null is center of screen
@@ -546,6 +604,7 @@ public class BankGUI {
 
 		// user selects to show info
 		info.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				// display information panel
 				profileFrame.remove(main);
@@ -559,6 +618,7 @@ public class BankGUI {
 
 		// user selects to create new account
 		newAccount.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				// display new account form panel
 				profileFrame.remove(main);
@@ -572,6 +632,7 @@ public class BankGUI {
 
 		// user selects to open existing account
 		openAccount.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				// index of option selected must be > 0
 				int index = selector.getSelectedIndex();
@@ -597,6 +658,7 @@ public class BankGUI {
 		});
 
 		transaction.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				int value = accOptions.getSelectedIndex();
 				if (value > 0) {
@@ -694,6 +756,7 @@ public class BankGUI {
 
 		// back buttons
 		infoBack.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				// remove the current panel and reopen the main panel
 				profileFrame.getContentPane().removeAll();
@@ -704,6 +767,7 @@ public class BankGUI {
 			}
 		});
 		createBack.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				// remove the current panel and reopen the main panel
 				profileFrame.getContentPane().removeAll();
@@ -714,6 +778,7 @@ public class BankGUI {
 			}
 		});
 		transactionBack.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				// remove the current panel and reopen the main panel
 				profileFrame.getContentPane().removeAll();
@@ -726,6 +791,7 @@ public class BankGUI {
 
 		// user chooses to logout
 		logout.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				// close the profile frame and return to customer login
 				profileFrame.dispose();
@@ -735,6 +801,7 @@ public class BankGUI {
 
 		// new account action listeners
 		checking.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				// add a checking account to the profile
 				String value = initBalance.getText();
@@ -746,10 +813,11 @@ public class BankGUI {
 				JOptionPane.showMessageDialog(null, "initial value must be a number");
 				return;
 				}
-				
+
 			}
 		});
 		saving.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				// add a savings account to the profile
 				String value = initBalance.getText();
@@ -764,6 +832,7 @@ public class BankGUI {
 			}
 		});
 		loc.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				// add a line of credit to the profile
 				String value = initBalance.getText();
@@ -779,23 +848,25 @@ public class BankGUI {
 		});
 		// remove an existing account
 		remove.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				// get the selection from the account dropdown
 				int index = selector.getSelectedIndex();
 				// make the index accurate accounting for the prompt at [0]
 				index = index-1;
-				
+
 				// get the accounts + pass the account to be removed into removeAccount
 				Account[] accounts = profile.getAccounts();
 				profile.removeAccount(accounts[index]);
-				
-				
+
+
 			}
-			
+
 		});
 
 		// update personal info buttons
 		update.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 
 				// int to check if option 0 is selected
@@ -815,7 +886,7 @@ public class BankGUI {
 						// prompt for new value
 						String n = JOptionPane.showInputDialog("Enter name: ");
 						// check if user presses cancel
-						if (n == null){ 
+						if (n == null){
 							return;}
 						// change the attribute
 						profile.setName(n);
@@ -825,12 +896,12 @@ public class BankGUI {
 
 					case "Address":
 						String a = JOptionPane.showInputDialog("Enter address: ");
-						if (a == null){ 
+						if (a == null){
 							return;}
 						profile.setAddress(a);
 						address.setText("Address: " + profile.getAddress());
 						break;
-						
+
 					case "Phone":
 						String input = "";
 						try {
@@ -850,28 +921,28 @@ public class BankGUI {
 
 					case "Email":
 						String eMail = JOptionPane.showInputDialog("Enter email: ");
-						if (eMail == null){ 
+						if (eMail == null){
 							return;}
 						profile.setEmail(eMail);
 						email.setText("Email: " + profile.getEmail());
 						break;
-						
+
 					case "Username":
 						String u = JOptionPane.showInputDialog("Enter username: ");
-						if (u == null){ 
+						if (u == null){
 							return;}
 						profile.setUsername(u);
 						username.setText("Username: " + profile.getUsername());
 						break;
-						
+
 					case "Password":
 						String pass = JOptionPane.showInputDialog("Enter password: ");
-						if (pass == null){ 
+						if (pass == null){
 							return;}
 						profile.setPassword(pass);
 						password.setText("Password: " + profile.getPassword());
 						break;
-						
+
 					default:
 						return;
 
@@ -883,13 +954,14 @@ public class BankGUI {
 
 		// button to change pin
 		pin.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				// create an array for account number selection
 				String[] accountNums = new String[accounts.length];
 				for (int i = 0; i < accounts.length; i++) {
 					accountNums[i] = "Account " + accounts[i].getNum();
 				}
-				
+
 				// have the user select an account
 				String num = (String) JOptionPane.showInputDialog(profileFrame,
 						"choose an account to change the pin:", "change pin", JOptionPane.PLAIN_MESSAGE, null,
@@ -918,7 +990,7 @@ public class BankGUI {
 				if (input == null) {
 					return;
 				}
-				
+
 				try {
 				p = Integer.parseInt(input);
 				}
@@ -927,20 +999,21 @@ public class BankGUI {
 					return;
 				}
 				acc.setPin(p);
-				
-				
+
+
 			}
 		});
 		// button to show recent history
 		history.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+
 				// create an array for account number selection
 				String[] accountNums = new String[accounts.length];
 				for (int i = 0; i < accounts.length; i++) {
 					accountNums[i] = "Account " + accounts[i].getNum();
 				}
-				
+
 				// have the user select an account
 				String num = (String) JOptionPane.showInputDialog(profileFrame,
 						"choose an account to view the history", "account history", JOptionPane.PLAIN_MESSAGE, null,
@@ -972,7 +1045,7 @@ public class BankGUI {
 				for (String event : events) {
 					builder.append(event).append("\n");
 				}
-				
+
 				// display log events to user
 				JOptionPane.showMessageDialog(null, builder.toString());
 
